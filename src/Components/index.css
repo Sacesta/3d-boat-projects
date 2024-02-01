@@ -1,0 +1,235 @@
+@font-face {
+  font-family: "CustomFont3";
+  src: url("/static/Sequel100Black-65.ttf") format("truetype");
+}
+
+.color-wrapper .cross{
+  position: absolute;
+  right: 400px;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  border-radius: 100px;
+  margin: 15px;
+  background-color: #C7E549;
+  padding: 12px;
+  transition: all ease .3s;
+}
+
+
+.color-wrapper .cross:hover{
+  outline:1px solid #000000;
+}
+
+.color-container {
+  width: 400px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  z-index: 100;
+  bottom: 0px;
+  overflow: hidden;
+  right: 0px;
+  top: 0px;
+  transition: 0.5s all ease-out;
+  color: #213547;
+
+}
+
+.color-cycle{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+.color-name{
+width: 100%;
+text-align: center;
+border-bottom: 1px solid rgba(216, 210, 210, 0.767);
+font-size: 18px;
+line-height: 50px;
+}
+
+.color-name span{
+  color: #000;
+  font-weight: 700;
+  font-family: "CustomFont3";
+  /* text-shadow: 1px 1px 3px #000; */
+}
+
+@media screen and (min-width: 640px) {
+  .color-container {
+    top: 0rem;
+    right: 0rem;
+    bottom: unset;
+    opacity: 1;
+  }
+
+  .colors-div {
+    display: flex;
+    /* border: 2px solid rgba(216, 210, 210, 0.767); */
+    padding: 10px 0;
+    margin: 0px 0;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+.color-container:hover {
+  opacity: 1;
+}
+
+.slider {
+  margin: auto;
+  width: 100%;
+  padding: 0px;
+  font-family:"CustomFont3";
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.slider-color {
+  display: flex;
+  border-bottom: 1px solid rgba(216, 210, 210, 0.767);
+  position: relative;
+  background-color: #C7E549;
+}
+
+.color-card-icon {
+  font-weight: 400;
+  height: 100%;
+  width: fit-content;
+  padding: 20px 6px;
+}
+
+.color-card-title {
+  /* border: 1px solid black; */
+  display: flex;
+  font-weight: 600;
+  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.color-card-title svg {
+  font-size: 1.3rem;
+  background: #B5D336;
+  height: 100%;
+  margin-bottom: -8px;
+}
+
+.colors-div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* border-top: 1px solid rgba(216, 210, 210, 0.767); */
+  /* border: 2px solid rgba(216, 210, 210, 0.767); */
+  margin-bottom: 20px;
+  overflow-y: auto;
+  height: calc(100% - 240px) !important;
+}
+
+.color-inner-div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 0 35px;
+}
+
+.color-inner-div>div {
+  flex-basis: 15%;
+}
+
+/* .color-picker {
+  width: 100%;
+} */
+
+.slide-indicator {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: #080808;
+  background-color: #fff;
+  border-top: 1px solid rgba(216, 210, 210, 0.767);
+}
+
+.slide-indicator .indicator{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 20%;
+}
+
+.slide-indicator-line {
+  flex: 1;
+  height: 1px;
+  background-color: #080808;
+  margin: 0 10px;
+}
+
+.select-con{
+  height: fit-content;
+  padding: 20px;
+  padding-bottom: 0px;
+}
+
+.select-con select{
+  padding: 10px;
+  font-family: "CustomFont3";
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  background-color: #F5F5F5;
+  border: 1px solid #C7E549;
+
+}
+
+@media (max-width: 640px) {
+
+.color-wrapper .cross{
+  position: absolute;
+  right: 0px;
+  top: auto;
+  bottom: 400px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  border-radius: 100px;
+  margin: 10px;
+  background-color: #C7E549;
+  padding: 12px;
+  transition: all ease .3s;
+}
+
+  .color-container {
+    width: 100vw;
+    height: 400px;
+    top: unset;
+    bottom: 0px;
+    right: 0px;
+  }
+
+
+.color-inner-div {
+  padding: 0 15px;
+}
+
+}
