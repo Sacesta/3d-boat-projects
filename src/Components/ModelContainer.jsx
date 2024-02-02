@@ -1,25 +1,25 @@
-import * as THREE from "three";
-import React, { Suspense, useRef, useMemo, useState, useEffect } from "react";
+import * as THREE from 'three';
+import React, { Suspense, useRef, useMemo, useState, useEffect } from 'react';
 import {
   Canvas,
   extend,
   useThree,
   useLoader,
   useFrame,
-} from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
-import { BsFillEyeFill } from "react-icons/bs";
-import { Water } from "three/examples/jsm/objects/Water.js";
-import ColorContainer from "./ColorContainer";
-import useColorStore from "../Utils/store";
-import "../App.css";
-import { captureScreenshot } from "../functions";
-import Menu from "./Menu/Menu";
-import Loader from "./Loader";
-import useMenuStore from "../Utils/menuStore";
-import useImageStore from "../Utils/imageStore";
-import PDFDocument from "./PDFDoucment";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+} from '@react-three/fiber';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { BsFillEyeFill } from 'react-icons/bs';
+import { Water } from 'three/examples/jsm/objects/Water.js';
+import ColorContainer from './ColorContainer';
+import useColorStore from '../Utils/store';
+import '../App.css';
+import { captureScreenshot } from '../functions';
+import Menu from './Menu/Menu';
+import Loader from './Loader';
+import useMenuStore from '../Utils/menuStore';
+import useImageStore from '../Utils/imageStore';
+import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
+import PDFDocument from './PDFDoucment';
 
 //extend
 extend({ Water });
@@ -27,7 +27,7 @@ extend({ Water });
 function Ocean({ setModelLoaded }) {
   const ref = useRef();
   const gl = useThree((state) => state.gl);
-  const waterNormals = useLoader(THREE.TextureLoader, "/waternormals.jpg");
+  const waterNormals = useLoader(THREE.TextureLoader, '/waternormals.jpg');
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
   const geom = useMemo(() => new THREE.PlaneGeometry(2000, 2000), []);
   const config = useMemo(
@@ -36,9 +36,9 @@ function Ocean({ setModelLoaded }) {
       textureHeight: 512,
       sunDirection: new THREE.Vector3(),
       sunColor: 0xffffff,
-      waterColor: 0x174017,
+      waterColor: 0x001e0f,
       waterNormals,
-      distortionScale: 0.3,
+      distortionScale: 3.7,
       fog: false,
       format: gl.encoding,
     }),
@@ -48,10 +48,8 @@ function Ocean({ setModelLoaded }) {
   useEffect(() => {
     setModelLoaded(true);
   }, []);
-
   useFrame(
-    (state, delta) =>
-      (ref.current.material.uniforms.time.value += delta * 0.155)
+    (state, delta) => (ref.current.material.uniforms.time.value += delta * 1)
   );
   return (
     <water
@@ -68,10 +66,8 @@ export default function ModelContainer({
   modelParts,
   colorOptions,
   initialColors,
-  colorTypes,
-  metallicColorOptions,
-  carbonFiberOptions,
   variants,
+  path,
 }) {
   const [scene, setScene] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -79,14 +75,15 @@ export default function ModelContainer({
   const [previewMode, setPreviewMode] = useState(false);
   const [showColorContainer, setShowColorContainer] = useState(false);
 
-  const { selectedOptions, selectionModel } = useMenuStore();
   const { setActiveState, setInitialColors, colors } = useColorStore();
+  const { selectedImage, setSelectedImage } = useImageStore();
+  const { selectedOptions, selectionModel } = useMenuStore();
   const updateSelection = useMenuStore((state) => state.updateSelection);
-  const { selectedImage } = useImageStore();
 
   const canvasRef = useRef();
 
   useEffect(() => {
+    setSelectedImage(variants[Object.keys(variants)[0]].images[0])
     setInitialColors(initialColors);
     updateSelection(variants[Object.keys(variants)[0]].initialOptions);
   }, []);
@@ -95,14 +92,14 @@ export default function ModelContainer({
     setShowColorContainer(false);
   };
 
-  // const handleCaptureScreenshot = async () => {
-  //   const canvas = document.querySelector(".print");
-  //   const selectedOptions = useMenuStore.getState().selectedOptions;
-  //   const selectedImage = useImageStore.getState().selectedImage;
-  //   const pdf = await captureScreenshot(canvas, selectedOptions, selectedImage);
-
-  //   pdf.save("screenshot.pdf");
-  // };
+  const handleCaptureScreenshot = async () => {
+    const canvas = document.querySelector('.print');
+    const selectedOptions = useMenuStore.getState().selectedOptions;
+    const selectedImage = useImageStore.getState().selectedImage;
+    // const pdf = await captureScreenshot(canvas, selectedOptions, selectedImage);
+    // pdf.save("screenshot.pdf");
+    // ReactPDF.render(<PDFDocument />, `/example.pdf`);
+  };
 
   const handleColorClick = () => {
     if (showColorContainer) setActiveState(0);
@@ -110,25 +107,23 @@ export default function ModelContainer({
     setShowColorContainer((prevShow) => !prevShow);
     setShowMenu(false);
   };
-
   return (
-    <div id="canvasComponent" style={{ height: "100vh", width: "100vw" }}>
+    <div id='canvasComponent' style={{ height: '100vh', width: '100vw' }}>
       <Canvas
         ref={canvasRef}
-        className="print"
+        className='print'
         camera={{ position: [0, 5, 100], fov: 45, near: 1, far: 20000 }}
-        gl={{ preserveDrawingBuffer: true }}
-      >
+        gl={{ preserveDrawingBuffer: true }}>
         <Suspense fallback={<Loader isR3F />}>
           {scene ? (
             <Environment
               background={true}
-              files={"/Environment/rocky_ridge_puresky_4k.hdr"}
+              files={'/Environment/kloofendal_48d_partly_cloudy_puresky_2k.hdr'}
             />
           ) : (
             <Environment
               background={true}
-              files={"/Environment/kloppenheim_07_puresky_2k.hdr"}
+              files={'/Environment/kloppenheim_07_puresky_2k.hdr'}
             />
           )}
           <Ocean setModelLoaded={setModelLoaded} />
@@ -141,70 +136,72 @@ export default function ModelContainer({
           rotateSpeed={0.6}
           panSpeed={0.6}
           enableZoom={true}
-          minDistance={3.3}
-          maxDistance={10}
+          minDistance={50}
+          maxDistance={155}
           enablePan={false}
         />
       </Canvas>
 
       {modelLoaded && (
-        <div className="options-wrap">
+        <div className='options-wrap'>
           {/*go back button*/}
-          {/* <div
+          <div
             onClick={() => {
-              window.location.href = "/";
+              window.location.href = '/';
             }}
-            className='go-back'
-          >
+            className='go-back'>
             <button className='button-pdf'>Go Back</button>
-          </div> */}
+          </div>
           {/*download pdf button*/}
-          <div className="download-pdf">
-            {/* <PDFDownloadLink
+          <div className='download-pdf'>
+            <PDFDownloadLink
               document={
                 <PDFDocument
+                  path={path}
                   selectedOptions={selectedOptions}
                   colors={colors}
                   selectedImage={selectedImage}
-                  model={selectionModel}
+                  model={
+                    selectionModel ===
+                    'Please Select Model First and Its All Feild'
+                      ? Object.keys(variants)[0]
+                      : selectionModel
+                  }
                 />
-              }
-            > */}
-              <button className="button-pdf">Download PDF</button>
-            {/* </PDFDownloadLink> */}
+              }>
+              <button   className='button-pdf'>Download PDF</button>
+           </PDFDownloadLink> 
           </div>
-          <div className="menu-icon-wrapper">
+          <div className='menu-icon-wrapper'>
             {/*menu button*/}
-            <div className="menu-button">
-            <button className="button-menu">
-              {/* <button onClick={toggleMenu} className="button-menu"> */}
-                Visit Store
-                </button>   {/* </button> */}
+            <div className='menu-button'>
+              <button onClick={toggleMenu} className='button-menu'>
+                Edit Features
+              </button>
             </div>
             {/*Icons */}
-            <div className="icon-container">
+            <div className='icon-container'>
               <div
-                className="icon"
+                className='icon'
                 onClick={() => {
                   if (!previewMode) setActiveState(0);
                   setPreviewMode(!previewMode);
-                }}
-              >
+                }}>
                 <BsFillEyeFill
                   size={28}
-                  style={{ padding: "3px", color: "#213547" }}
+                  style={{ padding: '3px', color: '#213547' }}
                 />
               </div>
               {!previewMode && (
                 <>
-                  {" "}
-                  <div onClick={handleColorClick} className="icon">
-                    <img src="/color.png" alt="arrow" />
+                  {' '}
+                  <div onClick={handleColorClick} className='icon'>
+                    <img src='/color.png' alt='arrow' />
                   </div>
-                  <div className="icon" onClick={() => setScene(!scene)}>
+                  <div className='icon' onClick={() => setScene(!scene)}>
                     <img
-                      src={scene ? "/sun_icon.png" : "/sunset_icon.png"}
-                      alt="arrow"
+                      src={scene ? '/sun_icon.png' : '/sunset_icon.png'}
+                      alt='arrow'
                     />
                   </div>
                 </>
@@ -218,15 +215,21 @@ export default function ModelContainer({
         <ColorContainer
           show={showColorContainer}
           modelParts={modelParts}
-          carbonFiberOptions={carbonFiberOptions}
           colorOptions={colorOptions}
-          handleColorClick={handleColorClick}
-          colorTypes={colorTypes}
-          metallicColorOptions={metallicColorOptions}
         />
       )}
 
-      {showMenu && <Menu variants={variants} onClick={() => toggleMenu()} />}
+      {showMenu && <Menu variants={variants} path={path}/>}
+
+      <div className='desktop_note'>
+        All prices found on this boat builder and website are based on standard
+        MSRP in US Dollars. Prices DO NOT include destination fees, prep,
+        registration fees, taxes, trailer, dealer installed options, or any
+        other applicable discounts or charges. Prices, materials, standard
+        equipment and options are subject to change without notice. Please
+        contact your nearest dealer to determine exact pricing at time of
+        purchase.
+      </div>
     </div>
   );
 }

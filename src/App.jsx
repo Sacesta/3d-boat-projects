@@ -1,8 +1,6 @@
 import React from "react";
-// import ModelSelector from "./Components/ModelSelector/ModelSelector";
-
-import Seacat from "./Pages/prophet.jsx";
+import ModelSelector from "./Components/ModelSelector/ModelSelector";
 
 export default function App() {
-  return <Seacat />;
+  return <ModelSelector />;
 }
