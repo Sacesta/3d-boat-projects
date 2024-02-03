@@ -1,6 +1,6 @@
 @font-face {
   font-family: "CustomFont3";
-  src: url("/static/Orbitron-Bold.ttf") format("truetype");
+  src: url("/static/Sequel100Black-65.ttf") format("truetype");
 }
 
 @font-face {
@@ -8,47 +8,99 @@
   src: url("/static/Poppins-Regular.ttf") format("truetype");
 }
 
+select{
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  background-color: #F5F5F5;
+  border: 1px solid #C7E549;
+  margin-bottom: 20px;
+}
+
+ select option{
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 42px;
+  letter-spacing: 0em;
+  
+}
+
+.cross{
+  position: absolute;
+  right: 400px;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  border-radius: 100px;
+  margin: 15px;
+  background-color: #C7E549;
+  padding: 12px;
+  transition: all ease .3s;
+}
+
+.cross:hover{
+  outline:1px solid #000000;
+}
+
 .pointer {
   cursor: pointer;
 }
 
-.checkbox-container {
-  display: flex;
-  align-items: center;
-   /* Align items vertically in the center */
-}
-
-.checkbox-input {
-  margin-right: 5px; /* Add a little space to the right of the checkbox */
-  width: fit-content !important;
-}
-
-.checkbox-text a {
-  color: blue;
-  text-decoration: underline;
-}
-
 .menu-container {
   position: absolute;
-  top: 4.8rem;
-  right: 1.2rem;
-  width: 280px;
-  height: calc(100vh - 250px);
-  background-color: rgba(255, 255, 255, 0.699);
-  padding: 12px;
-  border-radius: 10px;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 0px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   margin: 0 auto;
   transition: 0.2s linear;
   color: #213547;
+  overflow: hidden;
+}
+
+.menu-container .centered{
+  background-color: #C7E549;
+  font-family:var(--orbiton);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.menu-container .centered > div{
+  justify-content: space-between !important;
+  
+}
+
+.menu-container .centered > div > svg{
+  background: #B5D336;
+  height: 100%;
+  margin-top: -2px;
+
+  font-weight: 400;
+  padding: 10px 2px;
+  width: 34px;
+  height: 61px;
 }
 
 .menu-items-container {
   /* max-height: calc(100vh - 375px); */
-  max-height: calc(100vh - 355px);
+  max-height: calc(90vh);
   /* max-height: calc(100vh - 300px); */
-  overflow-y: auto;
+  height: fit-content;
+  overflow-y: scroll;
+  margin-bottom: 100px;
   padding-right: 0.7rem;
 }
 
@@ -64,12 +116,14 @@
   font-size: 18px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
-  font-family: "CustomFont3", sans-serif;
+  font-family:var(--orbiton);
+  
 }
 
 .menu-header-feature {
-  font-family: "CustomFont3", sans-serif;
-  font-size: 18px;
+  font-family:var(--orbiton);
+  font-size: 22px;
+  font-weight: 500;
   margin-bottom: 0px;
 }
 
@@ -97,7 +151,7 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
-  font-family: "CustomFont3", sans-serif;
+  font-family: var(--orbiton);
 }
 
 .menu-item {
@@ -208,7 +262,8 @@ label {
 }
 
 .menu-options {
-  height: 100%
+  height: 100%;
+  padding: 20px;
 }
 
 /* Define styles for the floor-plan-images-container class */
@@ -286,20 +341,42 @@ label {
   padding: 10px;
 }
 
-@media screen and (min-width: 640px) {
+.menu-items-container {
+  padding: 20px;
+}
+
+@media screen and (max-width: 640px) {
+  .cross{
+    position: absolute;
+    right: 0px;
+    top: auto;
+    bottom: 400px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    border-radius: 100px;
+    margin: 10px;
+    background-color: #C7E549;
+    padding: 12px;
+    transition: all ease .3s;
+  }
+
   .menu-container {
-    height: calc(100vh - 150px);
-    width: 390px;
-    top: 0.8rem;
-    padding: 20px;
-    opacity: 0.7;
-    right: 0.9rem;
+    width: 100vw;
+    height: 400px;
+    top: unset;
+    bottom: 0px;
+    right: 0px;
+    padding-bottom: 100px;
   }
 
 
 
   .menu-items-container {
-    max-height: calc(100vh - 270px);
+    max-height: calc(400px);
+    padding-bottom: 100px;
   }
 }
 
