@@ -1,5 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&display=swap');
+@font-face {
+  font-family: "CustomFont5";
+  src: url("/src/assets/Gilmer-Font/Gilmer_Regular.otf") format("truetype");
+}
+
 *,
 ::before,
 ::after {
@@ -9,7 +12,7 @@
 }
 
 :root {
-  font-family: "Poppins", sans-serif;
+  font-family: "CustomFont5";
   line-height: 1.5;
   font-weight: 400;
   background-color: rgba(255, 255, 255, 0.87);
@@ -19,8 +22,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  --orbiton : 'Orbitron';
 }
 
 a {
@@ -39,6 +40,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh; */
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -51,7 +54,7 @@ button {
   padding: 0.6em 1.2em;
   font-size: 0.9em;
   font-weight: 500;
-  font-family: "CustomFont3";
+  font-family: inherit;
   border: none;
   cursor: pointer;
   color: #242424;
@@ -67,29 +70,4 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-
-/* width */
-.custom-scroller::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-/* Track */
-.custom-scroller::-webkit-scrollbar-track {
-  border-radius: 100vh;
-  background: #3181B720;
-}
-
-/* Handle */
-.custom-scroller::-webkit-scrollbar-thumb {
-  background: #00000050;
-  transition: all 300ms ease;
-  border-radius: 100vh;
-}
-
-/* Handle on hover */
-.custom-scroller::-webkit-scrollbar-thumb:hover {
-  background: #00000060;
 }

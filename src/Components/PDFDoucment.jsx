@@ -7,6 +7,7 @@ import {
   Image,
   Font,
 } from "@react-pdf/renderer";
+import { colorOptions } from "../Constants/seacat";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -35,14 +36,28 @@ Font.register({
   family: "Open Sans",
   fonts: [
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
     },
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-800.ttf",
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-800.ttf',
       fontWeight: 800,
     },
   ],
 });
+
+function getColorName(hexCode) {
+  for (const optionName in colorOptions) {
+    const options = colorOptions[optionName];
+    const matchingColor = options.find((color) => color.hex === hexCode);
+    if (matchingColor) {
+      return matchingColor.name;
+    }
+  }
+  // Default to hex code if no matching color is found
+  return hexCode;
+}
+
+
 
 const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
   return (
@@ -56,14 +71,14 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
             marginTop: 10,
           }}
         >
-          {/* <Image
-            src="/logo.png"
+          <Image
+            src="/seacat-logo-black.png"
             style={{
               height: 40,
               width: 200,
               objectFit: "contain",
             }}
-          /> */}
+          />
         </View>
         <View
           style={{
@@ -74,7 +89,7 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
             gap: 10,
           }}
         >
-          <View style={{ width: "30%" }}>
+          <View style={{ width: "50%" }}>
             <Image
               // src="/AL212_FP.png"
               src={`/${selectedImage}`}
@@ -87,7 +102,7 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
           </View>
           <View
             style={{
-              width: "70%",
+              width: "50%",
               fontFamily: "Open Sans",
               display: "flex",
               flexDirection: "column",
@@ -95,7 +110,7 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
             }}
           >
             <View>
-              <Text style={{ fontWeight: 800 }}>Model Varient:</Text>
+              <Text style={{ fontWeight: 800 }}>Model Variant:</Text>
               <Text>{model}</Text>
             </View>
             {/* <View>
@@ -130,6 +145,20 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
                 }}
               >
                 <View>
+    <Text
+      style={{
+        fontWeight: 800,
+        fontSize: 14,
+        alignSelf: "flex-start",
+      }}
+    >
+      Sea Cat Hull:
+    </Text>
+    <Text style={{ fontSize: 12, width: "70%" }}>
+      {getColorName(colors["Sea Cat Hull"])}
+    </Text>
+  </View>
+                {/* <View>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -137,24 +166,10 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
                       alignSelf: "flex-start",
                     }}
                   >
-                    Base Body:
+                    Secondary Fence:
                   </Text>
                   <Text style={{ fontSize: 12, width: "70%" }}>
-                    {colors["Base Body"]}
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontWeight: 800,
-                      fontSize: 14,
-                      alignSelf: "flex-start",
-                    }}
-                  >
-                    Deck Strip:
-                  </Text>
-                  <Text style={{ fontSize: 12, width: "70%" }}>
-                    {colors["Deck Strip"]}
+                    {colors["Secondary Fence"]}
                   </Text>
                 </View>
               </View>
@@ -174,10 +189,10 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
                       alignSelf: "flex-start",
                     }}
                   >
-                    Interior:
+                    Exterior Rail:
                   </Text>
                   <Text style={{ fontSize: 12, width: "70%" }}>
-                    {colors["Interior"]}
+                    {colors["Exterior Rail"]}
                   </Text>
                 </View>
                 <View>
@@ -188,16 +203,16 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
                       alignSelf: "flex-start",
                     }}
                   >
-                    Top Deck:
+                    Interior Option:
                   </Text>
                   <Text style={{ fontSize: 12, width: "70%" }}>
-                    {colors["Top Deck"]}
+                    {colors["Interior Options"]}
                   </Text>
-                </View>
+                </View>*/}
               </View>
             </View>
           </View>
-        </View>
+        </View> 
 
         <View
           style={{
@@ -216,15 +231,15 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
             <Text
               style={{ fontWeight: 800, fontSize: 14, alignSelf: "flex-start" }}
             >
-              Engine Options:
+              Standard Options:
             </Text>
             <Text style={{ fontSize: 12, width: "70%" }}>
-              {selectedOptions["Select your Engine (multi-select)"]
-                ?.map((item, index) => `(${index + 1}) ${item}`)
+              {selectedOptions["Standard Options (multi-select)"]
+                ?.map((item, index) =>(`(${index + 1}) ${item}`))
                 .join("     ")}
             </Text>
           </View>
-          <View style={sideBySide.flexRow}>
+          {/* <View style={sideBySide.flexRow}>
             <Text
               style={{ fontWeight: 800, fontSize: 14, alignSelf: "flex-start" }}
             >
@@ -300,13 +315,16 @@ const PDFDocument = ({ selectedOptions, colors, selectedImage, model }) => {
                 ?.map((item, index) => `(${index + 1}) ${item}`)
                 .join("     ")}
             </Text>
-          </View>
+          </View> */}
         </View>
         <View
           style={{
             fontFamily: "Open Sans",
             display: "flex",
             alignItems: "center",
+            position: "absolute",
+            bottom: 10,
+            width: "100%",
           }}
         >
           <Text

@@ -34,27 +34,27 @@ export const captureScreenshot = async (
     const screenshotHeight = 100 * screenshotScale; // 240 is the original height of the screenshot
 
     // Add the logo to the first page with scaled dimensions
-    pdf.addImage("/logo.png", "PNG", 80, 10, logoWidth, logoHeight, {
+    pdf.addImage("/seacat-logo-black.png", "PNG", 80, 10, logoWidth, logoHeight, {
       align: "center",
     });
 
     // Create a canvas to resize the image
     pdf.addImage(imgData, "PNG", 10, 30, screenshotWidth, screenshotHeight);
-    pdf.addPage();
-    pdf.setFontSize(16);
-    pdf.text("Floor Plan", 100, 15, { align: "center" });
+    // pdf.addPage();
+    // pdf.setFontSize(16);
+    // pdf.text("Floor Plan", 100, 15, { align: "center" });
 
-    if (selectedImage) {
-      // Add the selected image to the second page with scaled dimensions
-      pdf.addImage(
-        selectedImage,
-        "PNG",
-        20,
-        30,
-        selectedImageWidth,
-        selectedImageHeight
-      );
-    }
+    // if (selectedImage) {
+    //   // Add the selected image to the second page with scaled dimensions
+    //   pdf.addImage(
+    //     selectedImage,
+    //     "PNG",
+    //     20,
+    //     30,
+    //     selectedImageWidth,
+    //     selectedImageHeight
+    //   );
+    // }
 
     // Add a new page
     pdf.addPage();
