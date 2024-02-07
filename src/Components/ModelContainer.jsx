@@ -18,8 +18,10 @@ import Menu from "./Menu/Menu";
 import Loader from "./Loader";
 import useMenuStore from "../Utils/menuStore";
 import useImageStore from "../Utils/imageStore";
-import PDFDocument from "./PDFDoucment";
+
+import DownloadLink from "./DownloadLink";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDFDocument from "./PDFDoucment";
 
 //extend
 extend({ Water });
@@ -38,7 +40,7 @@ function Ocean({ setModelLoaded }) {
       sunColor: 0xffffff,
       waterColor: 0x174017,
       waterNormals,
-      distortionScale: 0.3,
+      distortionScale: 1.5,
       fog: false,
       format: gl.encoding,
     }),
@@ -50,8 +52,7 @@ function Ocean({ setModelLoaded }) {
   }, []);
 
   useFrame(
-    (state, delta) =>
-      (ref.current.material.uniforms.time.value += delta * 0.155)
+    (state, delta) => (ref.current.material.uniforms.time.value += delta * 1)
   );
   return (
     <water
@@ -68,9 +69,6 @@ export default function ModelContainer({
   modelParts,
   colorOptions,
   initialColors,
-  colorTypes,
-  metallicColorOptions,
-  carbonFiberOptions,
   variants,
 }) {
   const [scene, setScene] = useState(true);
@@ -78,11 +76,15 @@ export default function ModelContainer({
   const [modelLoaded, setModelLoaded] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [showColorContainer, setShowColorContainer] = useState(false);
+  const { selectedImage, setSelectedImage } = useImageStore();
 
+  const initiallySelected = Object.keys(variants)[0];
+
+  const [selectedModel, setSelectedModel] = useState(initiallySelected);
+
+  const { colors, setActiveState, setInitialColors } = useColorStore();
   const { selectedOptions, selectionModel } = useMenuStore();
-  const { setActiveState, setInitialColors, colors } = useColorStore();
   const updateSelection = useMenuStore((state) => state.updateSelection);
-  const { selectedImage } = useImageStore();
 
   const canvasRef = useRef();
 
@@ -95,14 +97,14 @@ export default function ModelContainer({
     setShowColorContainer(false);
   };
 
-  // const handleCaptureScreenshot = async () => {
-  //   const canvas = document.querySelector(".print");
-  //   const selectedOptions = useMenuStore.getState().selectedOptions;
-  //   const selectedImage = useImageStore.getState().selectedImage;
-  //   const pdf = await captureScreenshot(canvas, selectedOptions, selectedImage);
+  const handleCaptureScreenshot = async () => {
+    const canvas = document.querySelector(".print");
+    const selectedOptions = useMenuStore.getState().selectedOptions;
+    // const selectedImage = useImageStore.getState().selectedImage;
+    const pdf = await captureScreenshot(canvas, selectedOptions);
 
-  //   pdf.save("screenshot.pdf");
-  // };
+    pdf.save("screenshot.pdf");
+  };
 
   const handleColorClick = () => {
     if (showColorContainer) setActiveState(0);
@@ -110,6 +112,16 @@ export default function ModelContainer({
     setShowColorContainer((prevShow) => !prevShow);
     setShowMenu(false);
   };
+
+  useEffect(()=>{
+    // console.log('Use img',selectedImage);
+    // console.log('Use variants',variants);
+    const firstKey = Object.keys(variants)[0];
+    const image = variants[firstKey].images[0]
+
+    setSelectedImage(image ? image : null);
+
+  }, [])
 
   return (
     <div id="canvasComponent" style={{ height: "100vh", width: "100vw" }}>
@@ -141,8 +153,8 @@ export default function ModelContainer({
           rotateSpeed={0.6}
           panSpeed={0.6}
           enableZoom={true}
-          minDistance={3.3}
-          maxDistance={10}
+          minDistance={12}
+          maxDistance={35}
           enablePan={false}
         />
       </Canvas>
@@ -150,36 +162,24 @@ export default function ModelContainer({
       {modelLoaded && (
         <div className="options-wrap">
           {/*go back button*/}
-          {/* <div
+          <div
             onClick={() => {
               window.location.href = "/";
             }}
-            className='go-back'
+            className="go-back"
           >
-            <button className='button-pdf'>Go Back</button>
-          </div> */}
+            <button className="button-pdf">Go Back</button>
+          </div>
           {/*download pdf button*/}
           <div className="download-pdf">
-            {/* <PDFDownloadLink
-              document={
-                <PDFDocument
-                  selectedOptions={selectedOptions}
-                  colors={colors}
-                  selectedImage={selectedImage}
-                  model={selectionModel}
-                />
-              }
-            > */}
-              <button className="button-pdf">Download PDF</button>
-            {/* </PDFDownloadLink> */}
+            <DownloadLink selectedModel={selectedModel} />
           </div>
           <div className="menu-icon-wrapper">
             {/*menu button*/}
             <div className="menu-button">
-            <button className="button-menu">
-              {/* <button onClick={toggleMenu} className="button-menu"> */}
-                Visit Store
-                </button>   {/* </button> */}
+              <button onClick={toggleMenu} className="button-menu">
+                Edit Features
+              </button>
             </div>
             {/*Icons */}
             <div className="icon-container">
@@ -197,14 +197,13 @@ export default function ModelContainer({
               </div>
               {!previewMode && (
                 <>
-                  {" "}
-                  <div onClick={handleColorClick} className="icon">
-                    <img src="/color.png" alt="arrow" />
+                  <div className="icon" onClick={handleColorClick}>
+                    <img src="/color.png" alt="color" />
                   </div>
                   <div className="icon" onClick={() => setScene(!scene)}>
                     <img
                       src={scene ? "/sun_icon.png" : "/sunset_icon.png"}
-                      alt="arrow"
+                      alt="scene"
                     />
                   </div>
                 </>
@@ -218,15 +217,20 @@ export default function ModelContainer({
         <ColorContainer
           show={showColorContainer}
           modelParts={modelParts}
-          carbonFiberOptions={carbonFiberOptions}
           colorOptions={colorOptions}
-          handleColorClick={handleColorClick}
-          colorTypes={colorTypes}
-          metallicColorOptions={metallicColorOptions}
         />
       )}
 
-      {showMenu && <Menu variants={variants} onClick={() => toggleMenu()} />}
+      {showMenu && (
+        <Menu
+          variants={variants}
+          initiallySelected={initiallySelected}
+          selectedModel={selectedModel}
+          setSelectedModel={setSelectedModel}
+          setSelectedImage={setSelectedImage}
+          selectedImage={selectedImage}
+        />
+      )}
     </div>
   );
 }

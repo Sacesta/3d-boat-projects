@@ -1,0 +1,167 @@
+.Sidebar {
+  top: 0px;
+  background-color: #fff;
+  flex: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  right: -300px;
+  width: 300px;
+  transition: all 0.3s ease;
+  color: #fff;
+  position: fixed !important;
+  padding-bottom: 100px;
+}
+
+.Sidebar .heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 1rem;
+  padding: 1rem;
+
+}
+
+.Sidebar .heading button.contactBtn {
+  background-color: #fff;
+  color: #000;
+  width: 100%;
+  font-weight: 400;
+  text-transform: capitalize;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  outline: none;
+  font-size: 0.9rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.Sidebar .heading button.contactBtn:hover {
+  background-color: rgb(231, 223, 216);
+}
+
+.Sidebar .heading button.closeBtn {
+  color: #999;
+  width: fit-content;
+  background-color: transparent;
+  transition: all 0.5s ease;
+  border-radius: 5px;
+  padding: 0.5rem;
+  outline: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  place-content: center;
+  position: absolute;
+  top: 0%;
+  right: 0;
+  margin: 1rem;
+}
+.Sidebar .heading button.closeBtn:hover {
+  color: #000;
+}
+
+.Sidebar ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.Sidebar ul > li {
+  padding: 1rem 0;
+}
+
+
+  .Sidebar  .sidelinks button.menuBtn {
+    display: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    line-height: 1;
+    padding: 0.8rem .8rem;
+    margin-right: -1rem;
+    border-radius: 10px;
+    outline: none;
+    place-content: center;
+  }
+  
+  
+.Sidebar  .sidelinks {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+
+}
+
+  .Sidebar  .sidelinks .sidelink {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+}
+
+.Sidebar  .sidelinks .sidelink button,
+.Sidebar  .sidelinks .sidelink a {
+    display: flex;
+    align-items: center;
+      width: 100%;
+      border: none;
+      outline: none;
+    padding: 1rem 1rem;
+    padding-left: 2rem;
+    text-transform: capitalize;
+    background-color: transparent !important;
+    font-size: 33px;
+    line-height: 38px;
+    color: #D5D5D5;
+    font-weight: 700;
+  }
+  
+.Sidebar  .sidelinks .sidelink:hover button,
+  .Sidebar  .sidelinks .sidelink:hover a  {
+      color: #3C4C4E;
+    }
+
+    .Sidebar  .sidelinks .sidelink a  span{
+  line-height: 0;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.Sidebar  .sidelinks .sidelink.active  a  > span ,
+.Sidebar  .sidelinks .sidelink:hover a > span{
+  transform: rotate(180deg);
+}
+  
+  .Sidebar  .sidelinks .sidelink .sidedropdown {
+    height: fit-content;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    margin: 0 15px;
+    width: calc(100% - 30px);
+    box-shadow: 0 0 10px 0 #00000030;
+  padding: 15px;
+  gap: 10px;
+  background-color: rgba(255,255,255,0.82);
+    overflow: hidden;
+    top: 100%;
+    background-color: #fff;
+    z-index: 100;
+  }
+  
+  .Sidebar  .sidelinks .sidelink .sidedropdown a{
+    font-weight: normal;
+    padding: 20px;
+   min-width: 200px;
+  }
+  
+  .Sidebar  .sidelinks .sidelink .sidedropdown a:hover{
+   color: #000;
+   background-color: #E5E8DF;
+  }
+  
+  .Sidebar  .sidelinks .sidelink:hover .sidedropdown {
+    display: flex;
+  }

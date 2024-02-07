@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 const useMenuStore = create((set) => ({
-  totalPrice: 0,
   selectionModel: "Please Select Model First and Its All Feild",
+  totalPrice: 0,
   selectedOptions: {
     "Select your Hull (single select)": null,
     "Engine options (single select)": null,
@@ -19,7 +19,7 @@ const useMenuStore = create((set) => ({
     set((state) => ({
       selectedOptions: selectedOptions,
     })),
-  updateSelectionModel: (model) => set((state) => ({ selectionModel: model })),
+  updateSelectionModel: (model) => set(() => ({ selectionModel: model })),
 }));
 
 export default useMenuStore;
