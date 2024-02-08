@@ -1,10 +1,7 @@
 @font-face {
+  src: url("../../assets/Gilmer-Font/Gilmer_Bold.otf") format("woff");
   font-family: "GilmerBold";
-  src: url("../../assets/Gilmer-Font/Gilmer_Bold.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
 }
-
 
 
 main {

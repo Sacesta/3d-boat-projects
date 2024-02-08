@@ -10,8 +10,9 @@ function Loader({ isR3F }) {
         height: "100vh",
         overflow: "hidden",
         backgroundColor: "#E6E9E0",
+        zIndex: '999'
       }}
-      center
+      center={true}
     >
       <img
         src="/seacat-loader.gif"
@@ -31,6 +32,7 @@ function Loader({ isR3F }) {
         height: "100vh",
         overflow: "hidden",
         backgroundColor: "#E6E9E0",
+        zIndex: '999'
       }}
       center
     >

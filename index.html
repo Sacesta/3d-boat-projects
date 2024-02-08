@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="sea-cat-2-fav.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-     <style>
-        body {
-            visibility: hidden;
-        }
-    </style>
-    <title>Sea Cat Boats</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="sea-cat-2-fav.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-  <body>
-    <div id="root"></div>
-      <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          var customFont = new FontFace('CustomFont5', 'url(/src/assets/Gilmer-Font/Gilmer_Regular.otf)');
+  <title>Sea Cat Boats</title>
+</head>
 
-          customFont.load().then(function(loadedFont) {
-              document.fonts.add(loadedFont);
-              document.body.style.visibility = 'visible';
-          }).catch(function(error) {
-              console.log('Font could not be loaded: ' + error.message);
-              // Optionally, make the body visible even if the font fails to load
-              document.body.style.visibility = 'visible';
-          });
-      });
-  </script>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+</body>
 
 </html>
