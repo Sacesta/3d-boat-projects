@@ -7,14 +7,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Loader from './Components/Loader.jsx';
 const Home = lazy(() => import('./Pages/Home/Home.jsx'));
 const Seacat = lazy(() => import('./Pages/seacat.jsx'));
-
+import fontUrl1 from './assets/Gilmer-Font/Gilmer_Regular.otf'
+import fontUrl2 from './assets/Gilmer-Font/Gilmer_Bold.otf'
 export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadFontsAndImages = async () => {
-      const fontUrl1 = '/src/assets/Gilmer-Font/Gilmer_Regular.otf';
-      const fontUrl2 = '/src/assets/Gilmer-Font/Gilmer_Bold.otf';
       const imageUrl = 'seacat-logo-black.png';
       const imageUrl2 = 'seacat-26.png';
 
@@ -44,7 +43,7 @@ export default function App() {
       } finally {
         setTimeout(() => {
           setLoading(false);
-        }, 1000);
+        }, 3000);
       }
     };
 
