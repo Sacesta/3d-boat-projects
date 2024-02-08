@@ -1,4 +1,7 @@
- 
+@font-face {
+  font-family: "CustomFont5";
+  src: url("/src/assets/Gilmer-Font/Gilmer_Regular.otf") format("truetype");
+} 
 
 
 *,
