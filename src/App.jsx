@@ -1,14 +1,14 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 // import ModelSelector from "./Components/ModelSelector/ModelSelector";
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import Seacat from "./Pages/seacat.jsx";
-// import Home from "./Pages/Home/Home.jsx";
+import Seacat from "./Pages/seacat.jsx";
+import Home from "./Pages/Home/Home.jsx";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Loader from './Components/Loader.jsx';
-const Home = lazy(() => import('./Pages/Home/Home.jsx'));
-const Seacat = lazy(() => import('./Pages/seacat.jsx'));
 import fontUrl1 from './assets/Gilmer-Font/Gilmer_Regular.otf'
 import fontUrl2 from './assets/Gilmer-Font/Gilmer_Bold.otf'
+
+
 export default function App() {
   const [loading, setLoading] = useState(true);
 
@@ -40,6 +40,9 @@ export default function App() {
         await document.fonts.ready;
       } catch (error) {
         console.error('Error loading resources:', error);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       } finally {
         setTimeout(() => {
           setLoading(false);
@@ -55,14 +58,12 @@ export default function App() {
       {loading ? (
         <Loader />
       ) : (
-        <Suspense fallback={<Loader />}>
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sea-cat-26" element={<Seacat />} />
             </Routes>
           </Router>
-        </Suspense>
       )}
     </>
   );
